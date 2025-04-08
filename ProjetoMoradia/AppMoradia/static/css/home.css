@@ -1,0 +1,222 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body,html  {
+    font-family: 'Poppins', sans-serif;
+    background: #f4f4f4;
+    color: #333;
+    height: 100%;
+    
+  }
+
+
+
+  /* NAVBAR */
+
+  .navbar-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(6px);
+    width: 70%;
+    border-radius: 10px;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    padding: 20px;
+}
+
+
+
+.navbar {
+    flex-grow: 1; /* Faz a navbar ocupar o espaço entre a logo e o botão */
+    display: flex;
+    justify-content: right; /* Mantém os itens centralizados */
+}
+  
+
+  
+  .logo {
+    cursor: pointer;
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0;
+    user-select: none;
+  }
+
+.gray {
+    font-weight: bold;
+    color: #1d1d1d;
+}
+
+.green {
+    font-weight: bold;
+    color: #29a548;
+}
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+  
+  .nav-links a {
+    color: #1d1d1d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #07f141;
+  }
+
+  .widget {
+    margin-left: 40px;
+  }
+  
+  .btn-login {
+    background: #29a548;
+    color: #fff;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    
+  }
+  
+  .btn-login:hover {
+    background: #05c634;
+  }
+  
+  /* HERO */
+
+
+
+.hero {
+    height: 100vh;
+    background: url('/media/fundo.png') no-repeat center center;
+    user-select: none;
+    background-size: 70%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+.hero-container {
+    z-index: 1;
+    width: 100%;
+    max-width: 1450px;
+    margin: 0 auto;
+    padding: 0 40px; /* mesmo padding lateral da navbar-box */
+    display: flex;
+    align-items: flex-start; /* caso queira colado no topo da div */
+}
+
+.hero-content {
+    padding: 40px;
+    color: #1d1d1d;
+    max-width: 370px;
+    margin-top: 160px;
+    font-size: 20px;
+}
+
+.hero-content h2 {
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+
+/* SOBRE */
+
+.sobre {
+    color: #1d1d1d;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto 100px auto;
+    font-size: 20px;
+    padding: 0 20px;
+    user-select: none;
+}
+
+
+
+
+/* DESTAQUES */
+
+.destaques {
+    padding: 80px 40px;
+    text-align: center;
+    background: #f4f4f4;
+    user-select: none;
+  }
+
+.destaques h2 {
+    font-size: 32px;
+    margin-bottom: 50px;
+    color: #1d1d1d;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    transition: transform 0.3s ease;
+  }
+
+  .card i {
+    font-size: 25px;
+    color: #29a548;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .card img {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .card h3 {
+    margin-bottom: 10px;
+    color: #29a548;
+  }
+  
+  .card p {
+    font-size: 16px;
+    color: #444;
+  }
+
+
+
+  
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background: #555;
+    color: white;
+  }
+  
