@@ -10,6 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
+<!-- Mensagens de alerta -->
 {% if messages %}
     <div class="alerta-area">
         
@@ -19,6 +21,8 @@
         
     </div>
 {% endif %}
+
+
 
 <div class="Menu">
     <a href="/"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
@@ -78,10 +82,7 @@
     </div>
 
 
- <!-- Mensagens de alerta -->
-
-
-
+ 
 
     <div class="overlay-container">
         <div class="overlay" id="overlay">
@@ -118,7 +119,8 @@
         }, 1500); // 3000 milissegundos = 3 segundos
     });
 </script>
-        
+
+
     
 
     <script src="{% static 'js/login.js' %}"></script>

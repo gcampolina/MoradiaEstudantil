@@ -42,10 +42,20 @@
             </div>
 
 
-            <div class="info2">
-                <p>Nome: {{ usuario.first_name }}</p>
-                <p>Usuário: {{ usuario.username }}</p>
-                <p>Email: {{ usuario.email }}</p>
+            <div class="info-card">
+                <h2 class="titleProfile">Meus Dados</h2>
+                <div class="info-item">
+                    <strong>Nome:</strong> <span>{{ usuario.first_name }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>Usuário:</strong> <span>{{ usuario.username }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>Email:</strong> <span>{{ usuario.email }}</span>
+                </div>
+                <div class="info-item">
+                    <strong>Tipo de Conta:</strong> <span>{{ usuario.tipo }}</span>
+                </div>
             </div>
         </div>
 

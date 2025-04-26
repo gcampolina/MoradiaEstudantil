@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>MoradiaEstudantil - Sistema</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     
@@ -19,10 +20,23 @@
             <span class="gray">Moradia</span><span class="green">Estudantil</span>
         </div>
         
+        <div class="user-info">
+            <a href="{% url 'conta' %}"><img src="{{ usuario.foto.url }}" alt="Foto do usuário" class="user-photo"></a>
+            <span class="user-name">{{ usuario.first_name }}</span>
+        </div>
+
+
         <ul>
             <li><a href="{% url 'sistema' %}"><i class="fa-solid fa-house"></i><span class="menu-text">Início</span></a></li>
-            <li><a><i class="fa-solid fa-comments"></i><span class="menu-text">Eventos</span></a></li>
+            <li><a href="{% url 'eventos' %}"><i class="fa-solid fa-comments"></i><span class="menu-text">Eventos</span></a></li>
             <li><a><i class="fa-solid fa-bell"></i><span class="menu-text">Avisos</span></a></li>
+
+            {% if user.tipo == 'COORDENADOR' %}
+            <li><a href="{% url 'painel-controle' %}"><i class="fa-solid fa-desktop"></i><span class="menu-text">Painel de Controle</span></a></li>
+            {% endif %}
+
+
+
      
         <div class="options">
             <li><a href="{% url 'conta' %}"><i class="fa-solid fa-user"></i><span class="menu-text">Conta</span></a></li>
@@ -64,6 +78,12 @@
     </div>
         
 
-
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('.alerta-area').fadeOut('slow');
+            }, 1500); // 3000 milissegundos = 3 segundos
+        });
+    </script>
 </body>
 </html>

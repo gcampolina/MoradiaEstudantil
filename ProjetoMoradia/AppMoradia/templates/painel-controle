@@ -1,0 +1,101 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+<div class="main-content">
+    {% block content %}
+
+    {% if messages %}
+    <div class="alerta-area">
+        
+        {% for message in messages %}
+        <div class="alerta-custom {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        
+    </div>
+{% endif %}
+
+
+
+<div class="dashboard">
+<h2 class="dashboard-title">Painel de Controle</h2>
+<table class="table-users">
+    
+    <thead>
+        
+        <tr>
+            <th>Nome</th>
+            <th>Usuário</th>
+            <th>Email</th>
+            <th>Tipo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in usuarios %}
+        <tr>
+            <form method="post" action="{% url 'update_user' user.id %}">
+                {% csrf_token %}
+                
+                <td>
+                    <input type="text" name="nome" value="{{ user.first_name }}" class="input-usuario" placeholder="Nome" required>
+                </td>
+        
+                <td>
+                    <input type="text" name="username" value="{{ user.username }}" class="input-usuario" placeholder="Usuário" required>
+                </td>
+        
+                <td>
+                    <input type="email" name="email" value="{{ user.email }}" class="input-usuario" placeholder="Email" required>
+                </td>
+
+                <td>
+                    
+                    <select name="tipo"  class="select-tipo">
+                        <option value="VISITANTE" {% if user.tipo == 'VISITANTE' %}selected{% endif %}>Visitante</option>
+                        <option value="RESIDENTE" {% if user.tipo == 'RESIDENTE' %}selected{% endif %}>Residente</option>
+                        <option value="SÍNDICO" {% if user.tipo == 'SÍNDICO' %}selected{% endif %}>Síndico</option>
+                        <option value="COORDENADOR" {% if user.tipo == 'COORDENADOR' %}selected{% endif %}>Coordenador</option>
+                    </select>
+
+                </td>
+
+                    
+                
+            
+                <td>
+                    <button value="salvar" name="action" type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i> Salvar</button>
+                </form>
+                    <form method="post" action="{% url 'delete_user' user.id %}" onsubmit="return confirm('Tem certeza?');">
+                        {% csrf_token %}
+                        <button  type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Excluir</button>
+                    </form>
+                </td>
+
+        
+        
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
+    {% endblock %}
+</div>
+
+</body>
+</html>

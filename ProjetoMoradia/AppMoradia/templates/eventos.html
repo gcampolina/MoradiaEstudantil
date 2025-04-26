@@ -1,0 +1,89 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+    
+
+
+<div class="main-content">
+    {% block content %}
+
+
+
+    {% if messages %}
+    <div class="alerta-area">
+        
+        {% for message in messages %}
+        <div class="alerta-custom {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        
+    </div>
+{% endif %}
+
+
+    <div class="dashboard">
+        
+    
+        <!-- Formulário para adicionar evento (só para Coordenador e Síndico) -->
+        {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' %}
+        <h2 class="dashboard-title">Criar Evento</h2>
+        <div class="form-adicionar-evento">
+            <form method="post" action="{% url 'adicionar_evento' %}">
+                {% csrf_token %}
+                <input type="text" name="titulo" placeholder="Título do Evento" required class="input-evento">
+                <textarea name="descricao" placeholder="Descrição" required class="textarea-evento"></textarea>
+                <input type="date" name="data" required class="input-evento">
+                <button type="submit" class="btn-adicionar">Adicionar Evento</button>
+            </form>
+        </div>
+        {% endif %}
+    
+        <h2 class="dashboard-title">Últimos Eventos criados:</h2>
+        <div class="lista-eventos">
+            {% for evento in eventos %}
+            <div class="card-evento">
+                <h3 class="titulo-evento">{{ evento.titulo }}</h3>
+                
+                <div class="info-evento">
+                    <p class="descricao-evento"><strong>Descrição:</strong> {{ evento.descricao }}</p>
+                    <p class="data-evento"><strong>Data:</strong> {{ evento.data|date:"d/m/Y" }}</p>
+                    <p class="autor-evento"><strong>Criado por:</strong> {{ evento.criado_por.first_name }}</p>
+                </div>
+    
+                {% if user.tipo == 'COORDENADOR' %}
+            <!-- Coordenador pode excluir qualquer evento -->
+            <form method="post" action="{% url 'excluir_evento' evento.id %}" onsubmit="return confirm('Tem certeza?');">
+                {% csrf_token %}
+                <button style="width: 100%;" type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Excluir Evento</button>
+            </form>
+            {% elif user.tipo == 'SÍNDICO' and evento.criado_por == user %}
+            <!-- Síndico pode excluir apenas os eventos que ele mesmo criou -->
+            <form method="post" action="{% url 'excluir_evento' evento.id %}" onsubmit="return confirm('Tem certeza?');">
+                {% csrf_token %}
+                <button style="width: 100%;" type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Excluir Evento</button>
+            </form>
+                {% endif %}
+            </div>
+            {% empty %}
+            <p>Nenhum evento cadastrado ainda.</p>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+
+</body>
+</html>

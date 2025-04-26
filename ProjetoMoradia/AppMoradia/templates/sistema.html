@@ -4,14 +4,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>MoradiaEstudantil - Sistema</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>MoradiaEstudantil - Sistema</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />    
 </head>
 <body>
-    
     
 
 
@@ -20,6 +19,19 @@
 
     <div class="main-content">
         {% block content %}
+        
+        {% if messages %}
+            <div class="alerta-area">
+                
+                {% for message in messages %}
+                <div class="alerta-custom {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+                
+            </div>
+        {% endif %}
+
+
+
         <div class="dashboard">
             <h2 class="dashboard-title">Bem-vindo(a), {{ usuario.first_name }}</h2>
             
@@ -28,21 +40,25 @@
                     <i class="fa-solid fa-calendar-check card-icon"></i>
                     <div class="card-content">
                         <h3>Próximo Evento</h3>
-                        <p>Churrasco de boas-vindas - 12/05</p>
+                        <p>{{ evento_proximo_titulo }} - {{ evento_proximo_data }}</p>
                     </div>
+                    <span>Clique e Saiba mais!</span>
                 </div>
                 <div class="card">
                     <i class="fa-solid fa-bullhorn card-icon"></i>
                     <div class="card-content">
                         <h3>Último Aviso</h3>
-                        <p>Reunião obrigatória dia 10/05</p>
+                        <p>Reunião - 20/12/2015</p>
                     </div>
+                    <span>Clique e Saiba mais!</span>
                 </div>
             </div>
         </div>
         {% endblock %}
     </div>
         
+
+    
 
 
 </body>

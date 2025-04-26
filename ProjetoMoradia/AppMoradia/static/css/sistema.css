@@ -13,6 +13,7 @@ body {
 
 
 .gray {
+    user-select: none;
     font-weight: bold;
     color: #1d1d1d;
     text-align: center;
@@ -23,6 +24,7 @@ body {
 }
 
 .green {
+    user-select: none;
     font-weight: bold;
     color: #29a548;
     text-align: center;
@@ -32,6 +34,9 @@ body {
     padding-bottom: 10px;
 }
 
+
+
+/* CSS PARA SIDEBAR*/
 
   .sidebar {
     position: fixed;
@@ -59,7 +64,7 @@ body {
 .sidebar ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 20px;
+    
     color: black;
 }
 
@@ -100,9 +105,36 @@ body {
 }
 
 
+.user-info {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.user-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #29a548; /* borda verde bonita */
+}
+
+.user-name {
+    font-weight: 600;
+    color: #1d1d1d;
+    font-size: 20px;
+}
+
+
+
+
+
 
 .main-content {
-    margin-left: 300px;
+    margin-left: 280px;
     padding: 20px; 
     min-height: 100vh;
     background: #f6f5f7;
@@ -112,18 +144,22 @@ body {
 
 /* CSS PARA ABA INÍCIO*/
 .dashboard {
-    margin-left: 260px;
-    padding: 40px;
+    margin-top: 70px;
     font-family: 'Poppins', sans-serif;
-    background-color: #f9f9f9;
-    min-height: 100vh;
 }
 
+
+
+
+
+
+
 .dashboard-title {
+    user-select: none;
     font-size: 28px;
     color: #333;
     font-weight: 600;
-    margin-bottom: 30px;
+    
     text-align: left;
 }
 
@@ -136,6 +172,10 @@ body {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     background-color: white;
     border-radius: 12px;
     padding: 25px;
@@ -145,6 +185,7 @@ body {
     width: 100%;
     max-width: 300px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .card:hover {
@@ -152,22 +193,28 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+.card span {
+    font-size: 12px;
+}
+
 .card-icon {
     font-size: 30px;
     color: #29a548;
-    margin-right: 15px;
+    
 }
 
 .card-content h3 {
+    
     font-size: 18px;
     margin: 0;
     color: #222;
 }
 
 .card-content p {
-    font-size: 14px;
+    margin-top: 10px;
+    font-size: 18px;
     color: #666;
-    margin-top: 5px;
+    
 }
 
 /* Responsivo */
@@ -209,7 +256,7 @@ body {
     font-size: 24px;
     font-weight: 600;
     color: #333;
-    margin-bottom: 20px;
+    
     text-align: center;
 }
 
@@ -238,13 +285,42 @@ body {
     
 }
 
-.info2 {
-    display: flex;
-    gap: 50px;
-    font-size: 15px;
-    color: #555;
+.info-card {
+    width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
     
 }
+
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    color: #333;
+    
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    font-weight: 600;
+    color: #555;
+}
+
+.info-item span {
+    color: #777;
+    max-width: 300px;
+}
+
 
 .alterarfoto {
     margin-top: 15px;
@@ -284,8 +360,6 @@ form {
 }
 
 
-
-
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
     .profile {
@@ -310,3 +384,239 @@ form {
         padding: 10px 18px;
     }
 }
+
+
+/* Estilo para as mensagens de erro */
+.alerta-area {
+    position: fixed;
+    top: 15px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    z-index: 1000;
+    user-select: none;
+}
+
+.alerta-custom {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Cores para os tipos de mensagem */
+.alerta-custom.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.alerta-custom.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alerta-custom.warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+
+
+
+/* CSS do Painel de Controle */
+.table-users {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-users th, .table-users td {
+    padding: 12px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    width: 200px;
+    
+}
+
+
+
+.table-users th {
+    text-align: center;
+    background-color: #f3f3f3;
+    
+}
+
+.btn-delete {
+    width: 50%;
+    padding: 6px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #b93c2e;
+}
+
+.btn-salvar {
+    width: 50%;
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-salvar:hover {
+    background-color: #45a049;
+}
+
+td button {
+    margin-bottom: 5px;
+}
+
+
+thead th {
+    text-align: center; 
+    vertical-align: middle; 
+    padding: 12px 16px;
+    background-color: #f8f8f8; 
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 2px solid #ddd; 
+}
+
+.form-update-tipo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.select-tipo {
+    width: 70%;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.input-usuario {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+
+/* CSS para ABA EVENTOS */
+.eventos-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.titulo-eventos {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-adicionar-evento {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.input-evento, .textarea-evento {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.btn-adicionar {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-adicionar:hover {
+    background-color: #45a049;
+}
+
+.lista-eventos {
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-evento {
+    background-color: white;
+    padding: 15px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-evento:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-evento {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.info-evento p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.descricao-evento {
+    color: #555;
+}
+
+.data-evento, .autor-evento {
+    color: #888;
+    font-size: 14px;
+}
+
+
+.btn-excluir-evento {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.btn-excluir-evento:hover {
+    background-color: #d32f2f;
+}
+
+
+
+
