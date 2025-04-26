@@ -1,0 +1,57 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+    
+
+
+<div class="main-content">
+    {% block content %}
+    <div class="profile">
+
+        <h2 class="titleProfile">Meu Perfil</h2>
+        <div class="foto">
+            {% if usuario.foto %}
+            <img class="imgPerfil" src="{{ usuario.foto.url }}" alt="Foto de perfil" />
+            {% else %}
+            <p>Sem foto de perfil.</p>
+            {% endif %}
+
+
+            <div class="info"><label for="id_foto">Alterar foto de perfil:</label></div>
+
+            <div class="alterarfoto">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input class="inputIdFoto" id="id_foto" type="file" name="foto" accept="image/*">
+                    <button class="btnAtt" type="submit">Atualizar Foto</button>
+                </form>
+            </div>
+
+
+            <div class="info2">
+                <p>Nome: {{ usuario.first_name }}</p>
+                <p>Usuário: {{ usuario.username }}</p>
+                <p>Email: {{ usuario.email }}</p>
+            </div>
+        </div>
+
+    </div>
+    {% endblock %}
+</div>
+
+</body>
+</html>

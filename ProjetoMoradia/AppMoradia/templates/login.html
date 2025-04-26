@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+{% if messages %}
+    <div class="alerta-area">
+        
+        {% for message in messages %}
+        <div class="alerta-custom {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        
+    </div>
+{% endif %}
 
 <div class="Menu">
     <a href="/"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
@@ -16,55 +26,59 @@
     
 
 
+        
 
+<!-- Cadastro -->
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form method="POST">
-            <h1>Cadastro</h1>
+        <form action="{% url 'cadastro' %}" method="POST">
             {% csrf_token %}
+            <input type="hidden" id="form_type" name="form_type" value="cadastro">
+            <h1>Cadastro</h1>
             <div class="input-group">
-                <label for="username">Nome</label>
-                <input type="text" id="nome" name="nome" required>
+                <input type="text" id="name" name="name" required placeholder="Nome">
             </div>
             <div class="input-group">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" required placeholder="Usuário">
             </div>
             <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password"  id="password" name="password" required>
+                <input type="email" id="email" name="email" required placeholder="Email">
             </div>
             <div class="input-group">
-                <label for="password">Confirmar Senha</label>
-                <input type="password"  id="password2" name="password2" required>
+                <input type="password"  id="password" name="password" required placeholder="Senha">
+            </div>
+            <div class="input-group">
+                <input type="password"  id="password2" name="password2" required placeholder="Confirmar senha">
             </div>
             
-            <button class="btnSubmit" type="submit" class="btn">Cadastrar</button>
+            <button class="btnSubmit" type="submit" >Cadastrar</button>
         </form>
     </div>
 
 
-
+<!-- Login -->
 
     <div class="form-container sign-in-container">
-        <form method="POST">
-            <h1>Área de Login</h1>
+        <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
+            <input type="hidden" id="form_type" name="form_type" value="login">
+            <h1>Área de Login</h1>
             <div class="input-group">
-                <label for="username">Usuário</label>
-                <input type="text" id="username" name="username" required>
+                <input type="text" id="username" name="username" required placeholder="Usuário">
             </div>
             <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password"  id="password" name="password" required>
+                <input type="password"  id="password" name="password" required placeholder="Senha">
             </div>
             <div class="options">
                
                 <a href="#">Esqueceu a senha?</a>
             </div>
-            <button class="btnSubmit" type="submit" class="btn">Entrar</button>
+            <button class="btnSubmit" type="submit" >Entrar</button>
         </form>
     </div>
+
+
+ <!-- Mensagens de alerta -->
 
 
 
@@ -97,10 +111,14 @@
 </div>
 
 
-
-
-
-
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $('.alerta-area').fadeOut('slow');
+        }, 1500); // 3000 milissegundos = 3 segundos
+    });
+</script>
+        
     
 
     <script src="{% static 'js/login.js' %}"></script>

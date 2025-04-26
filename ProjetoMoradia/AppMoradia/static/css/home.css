@@ -36,9 +36,9 @@
 
 
 .navbar {
-    flex-grow: 1; /* Faz a navbar ocupar o espaço entre a logo e o botão */
+    flex-grow: 1;
     display: flex;
-    justify-content: right; /* Mantém os itens centralizados */
+    justify-content: right; 
 }
   
 
@@ -116,9 +116,9 @@
     width: 100%;
     max-width: 1450px;
     margin: 0 auto;
-    padding: 0 40px; /* mesmo padding lateral da navbar-box */
+    padding: 0 40px;
     display: flex;
-    align-items: flex-start; /* caso queira colado no topo da div */
+    align-items: flex-start; 
 }
 
 .hero-content {

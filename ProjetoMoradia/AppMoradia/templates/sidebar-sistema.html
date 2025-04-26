@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+    <div class="sidebar" id="sidebar">
+        <div class="title">
+            <span class="gray">Moradia</span><span class="green">Estudantil</span>
+        </div>
+        
+        <ul>
+            <li><a href="{% url 'sistema' %}"><i class="fa-solid fa-house"></i><span class="menu-text">Início</span></a></li>
+            <li><a><i class="fa-solid fa-comments"></i><span class="menu-text">Eventos</span></a></li>
+            <li><a><i class="fa-solid fa-bell"></i><span class="menu-text">Avisos</span></a></li>
+     
+        <div class="options">
+            <li><a href="{% url 'conta' %}"><i class="fa-solid fa-user"></i><span class="menu-text">Conta</span></a></li>
+            <li>
+                <a class="btn-sair" href="#" onclick="document.getElementById('logout-form').submit();"><i class="fa-solid fa-arrow-left"></i><span class="menu-text">Sair</span></a>
+    
+                <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                    {% csrf_token %}
+                </form>
+            </li>
+           </div>
+        </ul>
+    </div>
+
+
+    <div class="main-content">
+        {% block content %}
+        <div class="dashboard">
+            <h2 class="dashboard-title">Bem-vindo(a), {{ usuario.first_name }}</h2>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <i class="fa-solid fa-calendar-check card-icon"></i>
+                    <div class="card-content">
+                        <h3>Próximo Evento</h3>
+                        <p>Churrasco de boas-vindas - 12/05</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-bullhorn card-icon"></i>
+                    <div class="card-content">
+                        <h3>Último Aviso</h3>
+                        <p>Reunião obrigatória dia 10/05</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+        
+
+
+</body>
+</html>

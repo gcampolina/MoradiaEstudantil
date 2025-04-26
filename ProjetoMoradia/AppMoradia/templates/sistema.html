@@ -1,0 +1,49 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+    
+
+
+    <div class="main-content">
+        {% block content %}
+        <div class="dashboard">
+            <h2 class="dashboard-title">Bem-vindo(a), {{ usuario.first_name }}</h2>
+            
+            <div class="cards-container">
+                <div class="card">
+                    <i class="fa-solid fa-calendar-check card-icon"></i>
+                    <div class="card-content">
+                        <h3>Próximo Evento</h3>
+                        <p>Churrasco de boas-vindas - 12/05</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-bullhorn card-icon"></i>
+                    <div class="card-content">
+                        <h3>Último Aviso</h3>
+                        <p>Reunião obrigatória dia 10/05</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+        
+
+
+</body>
+</html>
