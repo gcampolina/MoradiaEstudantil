@@ -13,10 +13,19 @@
 <body>
     
     
+    
+
+    <div class="sidebutton">
+        <button  id="toggle-sidebar" class="toggle-sidebar-btn"><i class="fa-solid fa-caret-down"></i></button>
+        <a style="text-decoration: none;" href="{% url 'sistema' %}">
+            <div class="titulosidebutton"><span class="moradia">Moradia</span><span class="estudantil">Estudantil</span></div>
+        </a>
+    </div>
 
 
     <div class="sidebar" id="sidebar">
         <div class="title">
+           
             <span class="gray">Moradia</span><span class="green">Estudantil</span>
         </div>
         
@@ -52,10 +61,9 @@
         </ul>
     </div>
 
-
+    
     <div class="main-content">
         {% block content %}
-        
         {% endblock %}
     </div>
         
@@ -153,16 +161,13 @@ function abrirModalDetalhes(event, buttonElement) {
             loadingSpinner.style.display = "none";
         });
 
+        window.onclick = function(event) {
+        var modalDetalhes = document.getElementById("modal-detalhes");
+            if (event.target == modalDetalhes) {
+                modal.style.display = "none";
+            }
+        }
 
-
-    window.onclick = function(event) {
-    var modalDetalhes = document.getElementById("modal-detalhes");
-    if (event.target == modalDetalhes) {
-        modal.style.display = "none";
-    }
-
-
-}
 }
 
     document.addEventListener("DOMContentLoaded", function() {
@@ -192,14 +197,51 @@ function abrirModalDetalhes(event, buttonElement) {
             if (event.target == modalAviso) {
                 modalAviso.style.display = "none";  
             }
-
-            if (event.target == modalDetalhes) {
-                modalDetalhes.style.display = "none";  
-            }
-
         }
+
+
+    
  
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-sidebar");
+    const sidebar = document.getElementById("sidebar");
+    const icon = toggleBtn.querySelector("i");
+    // Alternar visibilidade da sidebar
+    toggleBtn.addEventListener("click", (e) => {
+        e.stopPropagation(); // Evita que o clique propague para o document
+        sidebar.classList.toggle("open");
+        // Alterna o ícone
+        if (icon) {
+            if (sidebar.classList.contains("open")) {
+                icon.classList.remove("fa-caret-down");
+                icon.classList.add("fa-caret-up");
+            } else {
+                icon.classList.remove("fa-caret-up");
+                icon.classList.add("fa-caret-down");
+            }
+        }
+    });
+
+     // Impede que cliques dentro da sidebar fechem ela
+     sidebar.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+
+    // Clicar fora da sidebar fecha ela
+    document.addEventListener("click", () => {
+        if (sidebar.classList.contains("open")) {
+            sidebar.classList.remove("open");
+            if (icon) {
+                icon.classList.remove("fa-caret-up");
+                icon.classList.add("fa-caret-down");
+            }
+        }
+    });
+    
+});
+    
 
     
 </script>

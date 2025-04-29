@@ -354,3 +354,38 @@ input {
   border: 1px solid #ffeeba;
 }
 
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+      width: 100%;
+      flex-direction: column;
+      min-height: auto;
+  }
+
+  .form-container {
+      width: 100%;
+      padding: 20px;
+  }
+
+  .sign-in-container,
+  .sign-up-container {
+      width: 100%;
+      padding: 0;
+  }
+
+  .overlay-container {
+      left: 0;
+      width: 100%;
+  }
+
+  .overlay {
+      width: 100%;
+      transform: translateX(0);
+  }
+
+  .overlay-panel {
+      width: 100%;
+      padding: 20px;
+  }
+}
+

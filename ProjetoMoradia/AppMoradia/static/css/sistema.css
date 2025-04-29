@@ -2,7 +2,10 @@
     box-sizing: border-box;
 }
 
-
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* evita rolagem lateral */
+}
 
 body {
     background: #f6f5f7;
@@ -145,7 +148,6 @@ body {
 /* CSS PARA ABA INÍCIO*/
 .dashboard {
     margin-top: 70px;
-    font-family: 'Poppins', sans-serif;
 }
 
 
@@ -232,22 +234,166 @@ body {
     
 }
 
-/* Responsivo */
+.sidebutton {
+    display: none;
+}
+
+
+
+.moradia {
+    user-select: none;
+    font-weight: bold;
+    color: #1d1d1d;
+    text-align: center;
+    font-size: 24px;
+}
+
+.estudantil {
+    user-select: none;
+    font-weight: bold;
+    color: #29a548;
+    text-align: center;
+    font-size: 24px;
+}
+
+.titulosidebutton {
+    margin-left: 80px;
+}
+
+
+
+
+/* Responsividade */
+
 @media (max-width: 768px) {
-    .dashboard {
-        margin-left: 0;
+    
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        overflow-x: hidden;
+      }
+
+    #toggle-sidebar {
+        border: none;
+        background-color: white;
+        font-size: 30px;
+        cursor: pointer;
+        color: #29a548;
+        position: absolute;
+        z-index: 1100;
+    }
+
+    .sidebutton {
+        display: flex;
+        align-items: center;    
+        background-color: white;
+        padding: 10px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        z-index: 10000;
+        
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: #fff;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        z-index: 9998;
+    }
+
+    .sidebar.open {
+        transform: translateY(4%);
+    }
+
+    .gray,.green {
+        display: none;
+    }
+
+   
+    .info-card {
+        max-width: 340px;
         padding: 20px;
     }
 
-    .cards-container {
+   .profile {
+    
+    max-height: 640px;
+   }
+
+   .container-pai {
+    padding-top: 20px;
+}
+
+
+    .info-card h2 {
+        font-size: 20px;
+    }
+
+    .info-card img {
+        width: 90px;
+        height: 90px;
+    }
+
+    
+    .btn-salvar span, .btn-delete span {
+        display: none;  /* Esconde o texto */
+    }
+    
+    .btn-salvar, .btn-delete {
+        display: inline-flex;
         justify-content: center;
+    }
+    
+
+    
+
+    
+    
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
     }
 
     .card {
-        width: 100%;
+        width: 90%; /* Ou 100% se preferir ocupar tudo */
     }
+
+    .dashboard-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .main-content {
+        margin: 0;
+    }
+    .div-options {
+        display: flex; 
+        flex-direction: column;
+    }
+    
+    .titulo-evento {
+        width: 50%;
+    }
+
+    
 }
 
+.div-options {
+    display: flex; 
+    gap: 20px;
+}
 
 
 /* CSS PARA ABA CONTA*/
@@ -634,7 +780,7 @@ thead th {
 .modal {
     display: none; /* Inicialmente invisível */
     position: fixed;
-    z-index: 1; /* Fica acima de outros conteúdos */
+    z-index: 999999999; /* Fica acima de outros conteúdos */
     left: 0;
     top: 0;
     width: 100%;

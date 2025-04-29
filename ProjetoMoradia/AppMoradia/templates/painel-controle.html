@@ -77,11 +77,11 @@
                 
             
                 <td>
-                    <button value="salvar" name="action" type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i> Salvar</button>
+                    <button value="salvar" name="action" type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i> <span>Salvar</span></button>
                 </form>
                     <form method="post" action="{% url 'delete_user' user.id %}" onsubmit="return confirm('Tem certeza?');">
                         {% csrf_token %}
-                        <button  type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Excluir</button>
+                        <button  type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> <span>Excluir</span></button>
                     </form>
                 </td>
 
