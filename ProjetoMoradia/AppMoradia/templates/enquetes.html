@@ -1,0 +1,158 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Enquetes</title>
+</head>
+<body>
+
+<div class="main-content">
+    {% block content %}
+
+    {% if messages %}
+    <div class="alerta-area">
+        {% for message in messages %}
+            <div class="alerta-custom {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="dashboard">
+
+        <!-- Formulário para criar Enquete (apenas para Coordenador e Síndico) -->
+        {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' %}
+        <h2 class="dashboard-title">Criar Enquete</h2>
+        <div class="form-adicionar-evento">
+            <form method="post" action="{% url 'criar_enquete' %}">
+                {% csrf_token %}
+                <input type="text" name="pergunta" placeholder="Digite a pergunta da enquete" required class="input-evento">
+                <button type="submit" class="btn-adicionar">Criar Enquete</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <!-- Lista de Enquetes -->
+        <h2 class="dashboard-title">Enquetes Ativas:</h2>
+        <div class="lista-eventos">
+            {% for enquete in enquetes_ativas %}
+            <div class="card-evento">
+                
+                <div class="header-evento">
+                    <h3 class="titulo-evento">{{ enquete.pergunta }}</h3>
+
+                    
+
+                    <div style="display: flex; gap: 20px;">
+
+                        {% if enquete.status == 'ATIVA' and user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' and enquete.criado_por == user %}
+                       
+                        <button class="btn-detalhes" onclick="abrirModalDetalhes(event, this)" data-id="{{ enquete.id }}"><i class="fa-solid fa-info-circle"></i> Detalhes</button>
+
+                        <form method="post" action="{% url 'encerrar_enquete' enquete.id %}" onsubmit="return confirm('Tem certeza que deseja encerrar esta enquete?');">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-encerrar"><i class="fa-solid fa-flag-checkered"></i> Encerrar</button>
+                        </form>
+                        {% endif %}
+                        {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' and enquete.criado_por == user %}
+                        <!-- Botão para excluir enquete -->
+                        <form class="form-event" method="post" action="{% url 'excluir_enquete' enquete.id %}" onsubmit="return confirm('Tem certeza que deseja excluir esta enquete?');">
+                            {% csrf_token %}
+                            <button style="width: 100%;" type="submit" class="btn-deleteEnq"><i class="fa-solid fa-trash"></i> Excluir</button>
+                        </form>
+                        {% endif %}
+
+                    </div>
+                    
+
+                </div>
+
+                <!-- Mostrar opções SIM ou NÃO -->
+                <div class="info-evento">
+                    
+
+                    <div class="votacao">
+                        <form method="post" action="{% url 'votar_enquete' enquete.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="escolha" value="SIM" class="btn-voto btn-sim">✅ Sim ({{ enquete.votos_sim }})</button>
+                            <button type="submit" name="escolha" value="NÃO" class="btn-voto btn-nao">❌ Não ({{ enquete.votos_nao }})</button>
+                            
+                        </form>
+                    </div>
+                    <p><strong>Criado em:</strong> {{ enquete.data_criacao|date:"d/m/Y" }} às {{ enquete.data_criacao|date:"H:i" }}</p>
+                </div>
+
+                <p class="autor-evento"><strong>Criado por:</strong> {{ enquete.criado_por.first_name }}</p>
+            </div>
+            {% empty %}
+            <p>Nenhuma enquete ativa no momento.</p>
+            {% endfor %}
+        </div>
+
+
+        <h2 class="dashboard-title">Enquetes Encerradas:</h2>
+<div class="lista-eventos">
+    {% for enquete in enquetes_encerradas %}
+    <div class="card-evento encerrada">
+        <div class="header-evento">
+            <h3 class="titulo-evento">{{ enquete.pergunta }}</h3>
+
+            {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' and enquete.criado_por == user %}
+            <div style="display: flex; gap: 20px;">
+                        <button class="btn-detalhes" onclick="abrirModalDetalhes(event, this)" data-id="{{ enquete.id }}"><i class="fa-solid fa-info-circle"></i> Detalhes</button>
+                        <form class="form-event" method="post" action="{% url 'excluir_enquete' enquete.id %}" onsubmit="return confirm('Tem certeza que deseja excluir esta enquete?');">
+                            {% csrf_token %}
+                            <button style="width: 100%;" type="submit" class="btn-deleteEnq"><i class="fa-solid fa-trash"></i> Excluir</button>
+                        </form>
+            </div>
+                        {% endif %}
+                    
+
+        </div>
+        <div class="info-evento">
+            <p><strong>Quantidade de votos:</strong><br>
+                
+                <span>Sim: </span>({{ enquete.votos_sim }} <span>votos</span>)  <br>
+                <span>Não: </span>({{ enquete.votos_nao }} <span>votos</span>)
+            </p>
+            <p><strong>Criado em:</strong> {{ enquete.data_criacao|date:"d/m/Y" }} às {{ enquete.data_criacao|date:"H:i" }}</p>
+            {% if enquete.data_encerramento %}
+                <p><strong>Encerrado em:</strong> {{ enquete.data_encerramento|date:"d/m/Y" }} às {{ enquete.data_encerramento|date:"H:i" }}</p>
+            {% endif %}
+        </div>
+        <p class="autor-evento"><strong>Criado por:</strong> {{ enquete.criado_por.first_name }}</p>
+    </div>
+    {% empty %}
+    <p>Nenhuma enquete foi encerrada.</p>
+    {% endfor %}
+</div>
+
+
+     <!-- Modal para mostrar detalhes dos votos -->
+     <div id="modal-detalhes" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('modal-detalhes').style.display='none'">&times;</span>
+            <h2>Detalhes da Enquete</h2>
+            <h3>Votos Sim:</h3>
+            <p id="modal-detalhes-sim"></p>
+            <h3>Votos Não:</h3>
+            <p id="modal-detalhes-nao"></p>
+        </div>
+    </div>
+
+    <div id="loading-spinner" class="loading-spinner" style="display:none;">
+        <i class="fa fa-spinner fa-spin"></i> Carregando...
+    </div>
+
+
+    </div>
+    {% endblock %}
+</div>
+
+</body>
+</html>

@@ -29,7 +29,8 @@
         <ul>
             <li><a href="{% url 'sistema' %}"><i class="fa-solid fa-house"></i><span class="menu-text">Início</span></a></li>
             <li><a href="{% url 'eventos' %}"><i class="fa-solid fa-comments"></i><span class="menu-text">Eventos</span></a></li>
-            <li><a><i class="fa-solid fa-bell"></i><span class="menu-text">Avisos</span></a></li>
+            <li><a href="{% url 'avisos' %}"><i class="fa-solid fa-bell"></i><span class="menu-text">Avisos</span></a></li>
+            <li><a href="{% url 'enquetes' %}"><i class="fa-solid fa-square-poll-vertical"></i><span class="menu-text">Enquetes</span></a></li>
 
             {% if user.tipo == 'COORDENADOR' %}
             <li><a href="{% url 'painel-controle' %}"><i class="fa-solid fa-desktop"></i><span class="menu-text">Painel de Controle</span></a></li>
@@ -54,26 +55,7 @@
 
     <div class="main-content">
         {% block content %}
-        <div class="dashboard">
-            <h2 class="dashboard-title">Bem-vindo(a), {{ usuario.first_name }}</h2>
-            
-            <div class="cards-container">
-                <div class="card">
-                    <i class="fa-solid fa-calendar-check card-icon"></i>
-                    <div class="card-content">
-                        <h3>Próximo Evento</h3>
-                        <p>Churrasco de boas-vindas - 12/05</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-bullhorn card-icon"></i>
-                    <div class="card-content">
-                        <h3>Último Aviso</h3>
-                        <p>Reunião obrigatória dia 10/05</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         {% endblock %}
     </div>
         
@@ -85,5 +67,143 @@
             }, 1500); // 3000 milissegundos = 3 segundos
         });
     </script>
+
+
+<script>
+    // DEIXAr a função abrirModal FORA do DOMContentLoaded
+    function abrirModal(event, cardElement) {
+        var modal = document.getElementById("modal");
+        var loadingSpinner = document.getElementById("loading-spinner");
+
+        if (!modal || !loadingSpinner) return;
+
+        // Mostrar o spinner de carregamento
+        loadingSpinner.style.display = "block";
+
+        setTimeout(function() {
+            var titulo = cardElement.getAttribute("data-titulo");
+            var descricao = cardElement.getAttribute("data-descricao");
+            var data = cardElement.getAttribute("data-data");
+            var criadoPor = cardElement.getAttribute("data-criado-por");
+            
+            console.log('Título:', titulo);
+            console.log('Descrição:', descricao);
+            console.log('Data:', data);
+            console.log('Criado por:', criadoPor);
+
+            document.getElementById("modal-title").innerText = titulo;
+            document.getElementById("modal-description").innerText = "Descrição: " + descricao;
+            document.getElementById("modal-date").innerText = "Data: " + data;
+            document.getElementById("modal-created-by").innerText = "Criado por: " + criadoPor;
+
+            loadingSpinner.style.display = "none";
+            modal.style.display = "block";
+        }, 500); // 500ms para simular carregamento
+    }
+
+    function abrirModalAviso(event, cardElement) {
+    var modal = document.getElementById("modal-aviso");
+    var loadingSpinner = document.getElementById("loading-spinner");
+
+    if (!modal || !loadingSpinner) return;
+
+    loadingSpinner.style.display = "block";
+
+    setTimeout(function() {
+        var titulo = cardElement.getAttribute("data-titulo");
+        var descricao = cardElement.getAttribute("data-descricao");
+        var dataCriacao = cardElement.getAttribute("data-data-criacao");
+        var criadoPor = cardElement.getAttribute("data-criado-por");
+
+        document.getElementById("modal-aviso-title").innerText = titulo;
+        document.getElementById("modal-aviso-description").innerText = "Descrição: " + descricao;
+        document.getElementById("data-criacao").innerText = "Publicado em: " + dataCriacao;
+        document.getElementById("modal-aviso-created-by").innerText = "Criado por: " + criadoPor;
+
+        loadingSpinner.style.display = "none";
+        modal.style.display = "block";
+    }, 500);
+}
+
+function abrirModalDetalhes(event, buttonElement) {
+    var modal = document.getElementById("modal-detalhes");
+    var loadingSpinner = document.getElementById("loading-spinner");
+
+    if (!modal || !loadingSpinner) return;
+
+    loadingSpinner.style.display = "block";
+
+    const enqueteId = buttonElement.getAttribute("data-id");
+    console.log('ID da Enquete:', enqueteId);
+
+    fetch(`/detalhes-enquete/${enqueteId}/`)
+        .then(response => response.json())
+        .then(data => {
+            const nomesSim = data.sim.length ? data.sim.join("<br>") : "Nenhum voto.";
+            const nomesNao = data.nao.length ? data.nao.join("<br>") : "Nenhum voto.";
+
+            document.getElementById("modal-detalhes-sim").innerHTML = nomesSim;
+            document.getElementById("modal-detalhes-nao").innerHTML = nomesNao;
+
+            loadingSpinner.style.display = "none";
+            modal.style.display = "block";
+        })
+        .catch(error => {
+            console.error("Erro ao buscar detalhes da enquete:", error);
+            loadingSpinner.style.display = "none";
+        });
+
+
+
+    window.onclick = function(event) {
+    var modalDetalhes = document.getElementById("modal-detalhes");
+    if (event.target == modalDetalhes) {
+        modal.style.display = "none";
+    }
+
+
+}
+}
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("modal");
+        var modalAviso = document.getElementById("modal-aviso");
+        
+        var span = document.getElementsByClassName("close")[0];
+        var span2 = document.getElementsByClassName("close2")[0];
+
+        if (!modal || !modalAviso || !span) return;
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        span2.onclick = function() {
+            modalAviso.style.display = "none";
+        }
+
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";  
+                
+            }
+
+            if (event.target == modalAviso) {
+                modalAviso.style.display = "none";  
+            }
+
+            if (event.target == modalDetalhes) {
+                modalDetalhes.style.display = "none";  
+            }
+
+        }
+ 
+    });
+
+    
+</script>
+
+
 </body>
 </html>

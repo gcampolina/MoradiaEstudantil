@@ -36,29 +36,88 @@
             <h2 class="dashboard-title">Bem-vindo(a), {{ usuario.first_name }}</h2>
             
             <div class="cards-container">
-                <div class="card">
+                <div class="card"  data-titulo="{{ evento_proximo_titulo }}" 
+                data-descricao="{{ evento_proximo_descricao }}" 
+                data-data="{{ evento_proximo_data }}" 
+                data-criado-por="{{ evento_proximo_criado_por }}"
+                onclick="abrirModal(event, this)">
                     <i class="fa-solid fa-calendar-check card-icon"></i>
+
                     <div class="card-content">
                         <h3>Próximo Evento</h3>
-                        <p>{{ evento_proximo_titulo }} - {{ evento_proximo_data }}</p>
+                        <p>{{ evento_proximo_titulo }} <br> {{ evento_proximo_data }}</p>
                     </div>
+                    
                     <span>Clique e Saiba mais!</span>
+
                 </div>
-                <div class="card">
+                
+                <div class="card" data-titulo="{{ ultimo_aviso_titulo }}" 
+                data-descricao="{{ ultimo_aviso_descricao }}" 
+                data-data-criacao="{{ ultimo_aviso_data_criacao }}"
+                data-criado-por="{{ ultimo_aviso_criado_por }}"
+                onclick="abrirModalAviso(event, this)">
                     <i class="fa-solid fa-bullhorn card-icon"></i>
                     <div class="card-content">
                         <h3>Último Aviso</h3>
-                        <p>Reunião - 20/12/2015</p>
+                        <p>{{ ultimo_aviso_titulo }}</p>
                     </div>
                     <span>Clique e Saiba mais!</span>
                 </div>
+
+            <a href="{% url 'enquetes' %}" style="text-decoration: none; color: inherit;">
+                <div class="card">
+                    <i class="fa-solid fa-square-poll-vertical card-icon"></i>
+                    <div class="card-content">
+                        <h3>Enquetes</h3>
+                        <p>
+                        {% if enquetes_ativas > 0 %}
+                        <p class="foguinho">🔥</p>
+                        {{ enquetes_ativas }} Enquete(s) Ativa(s) <br> no Momento 
+                        <div class="fogo-ativo"></div>
+                        {% else %}
+                        Nenhuma Enquete Ativa no Momento
+                        {% endif %}</p>
+                    </div>
+                    <span>Clique e Saiba mais!</span>
+                </div>
+            </a>
+
             </div>
         </div>
-        {% endblock %}
-    </div>
-        
 
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 id="modal-title"></h2>
+                <p id="modal-description"></p>
+                <p id="modal-date"></p>
+                <p id="modal-created-by"></p>
+            </div>
+        </div>
+
+        <div id="modal-aviso" class="modal">
+            <div class="modal-content">
+                <span class="close2">&times;</span>
+                <h2 id="modal-aviso-title"></h2>
+                <p id="modal-aviso-description"></p>
+                <p id="data-criacao"></p>
+                <p id="modal-aviso-created-by"></p>
+            </div>
+        </div>
+
+
+
+        <div id="loading-spinner" class="loading-spinner" style="display:none;">
+            <i class="fa fa-spinner fa-spin"></i> Carregando...
+        </div>
+        {% endblock %}
+
+        
+    </div>
     
+
 
 
 </body>

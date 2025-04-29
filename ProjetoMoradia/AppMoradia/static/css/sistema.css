@@ -171,7 +171,20 @@ body {
     justify-content: flex-start;
 }
 
+
+.foguinho {
+    position: absolute;
+    top: 0;
+    right: 10px; /* Ajuste para o canto superior direito */
+    transform: scale(1.3);
+    z-index: 1; /* Garante que o foguinho fique por cima de outros elementos */
+}
+
 .card {
+    position: relative;
+    min-width: 300px;
+    min-height: 100%;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -202,6 +215,8 @@ body {
     color: #29a548;
     
 }
+
+
 
 .card-content h3 {
     
@@ -256,7 +271,6 @@ body {
     font-size: 24px;
     font-weight: 600;
     color: #333;
-    
     text-align: center;
 }
 
@@ -286,13 +300,9 @@ body {
 }
 
 .info-card {
-    width: 500px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-top: 20px;
-    
+    width: 700px;
+    margin-top: 10px; 
+    border-top: 1px solid #eee;
 }
 
 
@@ -336,6 +346,8 @@ body {
     margin-bottom: 15px;
     color: #555;
 }
+
+
 
 .btnAtt {
     background-color: #29a548;
@@ -449,7 +461,7 @@ form {
 
 .btn-delete {
     width: 50%;
-    padding: 6px 12px;
+    padding: 10px 12px;
     background-color: #e74c3c;
     color: white;
     border: none;
@@ -465,7 +477,7 @@ form {
 
 .btn-salvar {
     width: 50%;
-    padding: 6px 12px;
+    padding: 10px 12px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -476,7 +488,7 @@ form {
 }
 
 .btn-salvar:hover {
-    background-color: #45a049;
+    background-color: #207925;
 }
 
 td button {
@@ -546,16 +558,17 @@ thead th {
 }
 
 .btn-adicionar {
-    padding: 8px 16px;
+    padding: 10px 12px;
     background-color: #4CAF50;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .btn-adicionar:hover {
-    background-color: #45a049;
+    background-color: #207925;
 }
 
 .lista-eventos {
@@ -579,10 +592,16 @@ thead th {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
+.evento-passado {
+    opacity: 0.5;
+    margin: 0;
+}
+
 .titulo-evento {
+    padding: 0;
     font-size: 24px;
     font-weight: 600;
-    margin-bottom: 15px;
+    margin: 0;
 }
 
 .info-evento p {
@@ -590,33 +609,166 @@ thead th {
     font-size: 16px;
 }
 
-.descricao-evento {
-    color: #555;
-}
 
-.data-evento, .autor-evento {
+.autor-evento {
     color: #888;
     font-size: 14px;
 }
 
+.form-event {
+    align-items: end;
+}
 
-.btn-excluir-evento {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
-    background-color: #e53935;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 12px;
+.header-evento {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clique-saiba-mais {
+    position: absolute; 
+}
+
+
+
+/* CSS para o MODAL */
+.modal {
+    display: none; /* Inicialmente invisível */
+    position: fixed;
+    z-index: 1; /* Fica acima de outros conteúdos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Garante que o conteúdo seja rolável se necessário */
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo semitransparente */
+}
+
+/* Conteúdo do Modal */
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ajuste conforme necessário */
+    max-width: 800px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo do botão de fechar (X) */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
 }
 
-.btn-excluir-evento:hover {
-    background-color: #d32f2f;
+.close2 {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close2:hover,
+.close2:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Carregando... */
+.loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: #333;
+    z-index: 9999;
 }
 
 
 
+/* CSS Enquete */
+
+
+.btn-voto {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-sim {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.btn-sim:hover {
+    background-color: #c3e6cb;
+}
+
+.btn-nao {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.btn-nao:hover {
+    background-color: #f5c6cb;
+}
+
+.votacao {
+    display: flex;
+    margin: 10px;
+}
+
+
+.btn-deleteEnq, .btn-encerrar, .btn-detalhes {
+    padding: 10px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+
+.btn-encerrar {
+    color: white;
+    background-color: #4CAF50;
+}
+
+.btn-encerrar:hover {
+    background-color: #207925;
+}
+
+.btn-detalhes {
+color: white;
+background-color: #575656;
+}
+
+.btn-detalhes:hover {
+    background-color: #303030;
+}
+
+.btn-deleteEnq {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-deleteEnq:hover {
+    background-color: #b93c2e;
+}
 

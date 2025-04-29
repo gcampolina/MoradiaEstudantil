@@ -37,39 +37,38 @@
     <div class="dashboard">
         
     
-        <!-- Formulário para adicionar evento (só para Coordenador e Síndico) -->
+        <!-- Formulário para adicionar aviso (só para Coordenador e Síndico) -->
         {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' %}
-        <h2 class="dashboard-title">Criar Evento</h2>
+        <h2 class="dashboard-title">Criar Aviso</h2>
         <div class="form-adicionar-evento">
-            <form method="post" action="{% url 'adicionar_evento' %}">
+            <form method="post" action="{% url 'adicionar_aviso' %}">
                 {% csrf_token %}
-                <input type="text" name="titulo" placeholder="Título do Evento" required class="input-evento">
+                <input type="text" name="titulo" placeholder="Título do Aviso" required class="input-evento">
                 <textarea name="descricao" placeholder="Descrição" required class="textarea-evento"></textarea>
-                <input type="date" name="data" required class="input-evento">
-                <button type="submit" class="btn-adicionar">Criar Evento</button>
+                <button type="submit" class="btn-adicionar">Criar Aviso</button>
             </form>
         </div>
         {% endif %}
     
-        <h2 class="dashboard-title">Últimos Eventos criados:</h2>
+        <h2 class="dashboard-title">Últimos Avisos:</h2>
         <div class="lista-eventos">
-            {% for evento in eventos %}
+            {% for aviso in avisos %}
             
-            <div class="card-evento {% if evento.data < hoje %}evento-passado{% endif %}" >
+            <div class="card-evento">
                 
-
+                
                 
                 <div class="header-evento">
-                    <h3 class="titulo-evento">{{ evento.titulo }}</h3>
+                    <h3 class="titulo-evento">{{ aviso.titulo }}</h3>
                     {% if user.tipo == 'COORDENADOR' %}
                     <!-- Coordenador pode excluir qualquer evento -->
-                    <form class="form-event" method="post" action="{% url 'excluir_evento' evento.id %}" onsubmit="return confirm('Tem certeza?');">
+                    <form class="form-event" method="post" action="{% url 'excluir_aviso' aviso.id %}" onsubmit="return confirm('Tem certeza?');">
                         {% csrf_token %}
                         <button style="width: 100%; " type="submit" class="btn-delete"><i class="fa-solid fa-xmark"></i> Excluir</button>
                     </form>
-                    {% elif user.tipo == 'SÍNDICO' and evento.criado_por == user %}
+                    {% elif user.tipo == 'SÍNDICO' and aviso.criado_por == user %}
                     <!-- Síndico pode excluir apenas os eventos que ele mesmo criou -->
-                    <form class="form-event" method="post" action="{% url 'excluir_evento' evento.id %}" onsubmit="return confirm('Tem certeza?');">
+                    <form class="form-event" method="post" action="{% url 'excluir_aviso' aviso.id %}" onsubmit="return confirm('Tem certeza?');">
                         {% csrf_token %}
                         
                         <button style="width: 100%;" type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Excluir</button>
@@ -78,28 +77,17 @@
 
                 </div>
 
-                
-                <div class="info-evento">        
-                    <p class="descricao-evento"><strong>Descrição:</strong> {{ evento.descricao }}</p>
-                    <p class="data-evento"><strong>Data:</strong> {{ evento.data|date:"d/m/Y" }}</p>   
+
+                <div class="info-evento">
+                    <p class="descricao-evento"><strong>Descrição:</strong> {{ aviso.descricao }}</p>
+                    <p><strong>Publicado em:</strong> {{ aviso.data_criacao|date:"d/m/Y" }} às {{ aviso.data_criacao|date:"H:i" }}</p>
                 </div>
 
-                
-                <p class="autor-evento"><strong>Criado por:</strong> {{ evento.criado_por.first_name }}</p>
+                <p class="autor-evento"><strong>Criado por:</strong> {{ aviso.criado_por.first_name }}</p>
 
-
-                {% if evento.data < hoje %}
-        <p class="evento-passado" style="color: rgb(255, 60, 0); font-weight: bold; "><i class="fa-solid fa-triangle-exclamation"></i> Este evento já ocorreu.</p>
-                {% endif %}
-                {% if evento.data == hoje %}
-        <p  style="color: rgb(42, 119, 219); font-weight: bold; margin-top: 5px;"><i class="fa-regular fa-circle-check"></i> Este evento acontece hoje.</p>
-                {% endif %}
-                
-
-                
             </div>
             {% empty %}
-            <p>Nenhum evento cadastrado ainda.</p>
+            <p>Nenhum aviso cadastrado ainda.</p>
             {% endfor %}
         </div>
     </div>
