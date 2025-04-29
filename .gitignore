@@ -132,6 +132,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+db.sqlite3
+
 .env
 .venv
 env/
