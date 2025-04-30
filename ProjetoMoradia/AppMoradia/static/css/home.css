@@ -80,8 +80,7 @@
   }
 
   .nav-links2 {
-
-    display: none;
+    
     list-style: none;
     display: flex;
     align-items: center;
@@ -91,6 +90,7 @@
   
   
   .nav-links2 a {
+    display: none;
     color: #1d1d1d;
     text-decoration: none;
     font-weight: 500;
@@ -271,7 +271,7 @@
       display: none;
     }
 
-    .nav-links2 {
+    .nav-links2 a {
       display: block;
     }
   

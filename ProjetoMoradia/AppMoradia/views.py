@@ -24,20 +24,22 @@ def sistema(request):
 def dashboard(request):
     hoje = timezone.now().date()  # Pega a data de hoje
     # Filtra os eventos que ocorrerão hoje ou no futuro
-    eventos_futuros = Evento.objects.filter(data__gte=hoje).order_by('data') # Pega o primeiro evento com data maior ou igual a hoje
+    eventos_futuros = Evento.objects.filter(data__gte=hoje).order_by('data')  # Pega o primeiro evento com data maior ou igual a hoje
     enquetes_ativas = Enquete.objects.filter(status='ATIVA').count()
 
-    
-    # Se não houver evento, definimos uma variável default
+    # Inicializa as variáveis com valores padrões (None ou algo adequado)
+    evento_proximo_titulo = "Nenhum evento futuro registrado"
+    evento_proximo_data = ""
+    evento_proximo_descricao = ""
+    evento_proximo_criado_por = ""
+
+    # Se houver eventos futuros, define as variáveis com os dados do primeiro evento
     if eventos_futuros.exists():
         evento_proximo = eventos_futuros.first()
         evento_proximo_titulo = evento_proximo.titulo
         evento_proximo_descricao = evento_proximo.descricao
         evento_proximo_data = evento_proximo.data.strftime('%d/%m/%Y')  # Formata a data
         evento_proximo_criado_por = evento_proximo.criado_por.first_name if evento_proximo.criado_por else "Desconhecido"
-    else:
-        evento_proximo_titulo = "Nenhum evento futuro."
-        evento_proximo_data = "N/A"
 
     try:
         ultimo_aviso = Aviso.objects.latest('data_criacao')
@@ -46,7 +48,25 @@ def dashboard(request):
         ultimo_aviso_data_criacao = ultimo_aviso.data_criacao
         ultimo_aviso_criado_por = ultimo_aviso.criado_por.first_name if ultimo_aviso.criado_por else "Desconhecido"
     except Aviso.DoesNotExist:
-        ultimo_aviso_titulo = "Nenhum aviso no momento."
+        ultimo_aviso_titulo = "Nenhum aviso no momento"
+        ultimo_aviso_descricao = ""
+        ultimo_aviso_data_criacao = ""
+        ultimo_aviso_criado_por = ""
+
+    # Passa a lista de eventos e o próximo evento para o template
+    return render(request, 'sistema.html', {
+        'usuario': request.user,
+        'evento_proximo_titulo': evento_proximo_titulo,
+        'evento_proximo_data': evento_proximo_data,
+        'eventos_futuros': eventos_futuros,
+        'evento_proximo_descricao': evento_proximo_descricao,
+        'evento_proximo_criado_por': evento_proximo_criado_por,
+        'ultimo_aviso_titulo': ultimo_aviso_titulo,
+        'ultimo_aviso_descricao': ultimo_aviso_descricao,
+        'ultimo_aviso_criado_por': ultimo_aviso_criado_por,
+        'ultimo_aviso_data_criacao': ultimo_aviso_data_criacao,
+        'enquetes_ativas': enquetes_ativas,
+    })
 
 
     # Passa a lista de eventos e o próximo evento para o template
