@@ -132,7 +132,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-db.sqlite3
+echo "ProjetoMoradia/db.sqlite3" >> .gitignore
+
 
 .env
 .venv
