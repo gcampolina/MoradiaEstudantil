@@ -354,38 +354,58 @@ input {
   border: 1px solid #ffeeba;
 }
 
+.cadastro-now {
+  display: none;
+  text-align: center;
+}
+
+
+
 /* Responsividade */
 @media (max-width: 768px) {
   .container {
-      width: 100%;
       flex-direction: column;
-      min-height: auto;
+      width: 100%;
+      min-height: 100vh;
+      border-radius: 0;
   }
 
-  .form-container {
+  .form-container,
+  .sign-in-container{
+      margin-top: 50%;
       width: 100%;
+      position: relative;
+      transform: none !important;
+      opacity: 1 !important;
+      z-index: 1 !important;
       padding: 20px;
   }
 
-  .sign-in-container,
+  .cadastro-now {
+    display: block;
+  }
+
   .sign-up-container {
-      width: 100%;
-      padding: 0;
+    margin: 0;
+    margin-top: 30%;
+    display: none;
   }
 
   .overlay-container {
-      left: 0;
-      width: 100%;
+      display: none;
   }
 
   .overlay {
-      width: 100%;
-      transform: translateX(0);
+      display: none;
   }
 
-  .overlay-panel {
+  .btnSubmit, .ghost {
       width: 100%;
-      padding: 20px;
+  }
+
+  .input-group input {
+      font-size: 16px;
   }
 }
+
 

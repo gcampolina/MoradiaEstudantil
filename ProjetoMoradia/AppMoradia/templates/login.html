@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoradiaEstudantil - Login</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -34,7 +35,7 @@
 
 <!-- Cadastro -->
 <div class="container" id="container">
-    <div class="form-container sign-up-container">
+    <div class="form-container sign-up-container" id="sign-up-container">
         <form action="{% url 'cadastro' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" id="form_type" name="form_type" value="cadastro">
@@ -57,12 +58,17 @@
             
             <button class="btnSubmit" type="submit" >Cadastrar</button>
         </form>
+        <div class="cadastro-now">
+        <p>Já possui uma conta?</p>
+        <button class="ghost" id="showLoginBtn">Entrar Agora!</button>
+        </div>
+        
     </div>
 
 
 <!-- Login -->
 
-    <div class="form-container sign-in-container">
+    <div class="form-container sign-in-container" id="sign-in-container">
         <form action="{% url 'login' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" id="form_type" name="form_type" value="login">
@@ -79,6 +85,10 @@
             </div>
             <button class="btnSubmit" type="submit" >Entrar</button>
         </form>
+        <div class="cadastro-now">
+            <p>Ainda não possui uma conta?</p>
+            <button class="ghost" id="showSignupBtn">Cadastrar Agora!</button>
+        </div>
     </div>
 
 

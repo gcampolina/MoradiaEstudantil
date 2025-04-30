@@ -65,8 +65,8 @@
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 40px;
   }
+
   
   .nav-links a {
     color: #1d1d1d;
@@ -76,6 +76,28 @@
   }
   
   .nav-links a:hover {
+    color: #07f141;
+  }
+
+  .nav-links2 {
+
+    display: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  
+  
+  .nav-links2 a {
+    color: #1d1d1d;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links2 a:hover {
     color: #07f141;
   }
 
@@ -223,6 +245,7 @@
   /* RESPONSIVIDADE */
   @media (max-width: 768px) {
     .navbar-box {
+      
       flex-direction: column;
       width: 90%;
       padding: 15px;
@@ -241,7 +264,15 @@
     }
 
     .btn-login {
-      padding: 10px 20px;
+      padding: 10px 140px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .nav-links2 {
+      display: block;
     }
   
     .sobre {
