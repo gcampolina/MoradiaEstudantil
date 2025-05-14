@@ -1,0 +1,51 @@
+{% extends 'sidebar-sistema.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>MoradiaEstudantil - Sistema</title>
+</head>
+<body>
+    
+    
+
+
+    
+
+
+<div class="main-content">
+    {% block content %}
+
+<div class="dashboard">
+    <h2 class="dashboard-title">Coordenadores e Síndicos:</h2>
+    <div class="lista-usuarios">
+        {% for user in usuarios %}
+            {% if user.tipo == 'COORDENADOR' or user.tipo == 'SÍNDICO' %}
+                <div class="card-usuario">
+                    <p><strong>Nome:</strong> {{ user.first_name }} ({{ user.tipo }})</p>
+                    <p><strong>Email:</strong> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+                    
+                    {% if user.telefone %}
+                        <a class="whatsapp-btn" href="https://wa.me/55{{ user.telefone }}" target="_blank">
+                            <i class="fab fa-whatsapp"></i> WhatsApp
+                        </a>
+                    {% else %}
+                        <p><em>Telefone não informado</em></p>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% empty %}
+            <p>Nenhum coordenador ou síndico cadastrado.</p>
+        {% endfor %}
+    </div>
+</div>
+    {% endblock %}
+</div>
+
+</body>
+</html>
