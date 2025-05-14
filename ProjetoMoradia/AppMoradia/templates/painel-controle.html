@@ -40,6 +40,7 @@
             <th>Nome</th>
             <th>Usuário</th>
             <th>Email</th>
+            <th>Telefone</th>
             <th>Tipo</th>
             <th>Ações</th>
         </tr>
@@ -60,6 +61,10 @@
         
                 <td>
                     <input type="email" name="email" value="{{ user.email }}" class="input-usuario" placeholder="Email" required>
+                </td>
+
+                <td>
+                    <input type="tel" name="telefone" value="{{ user.telefone }}" class="input-usuario" placeholder="Telefone" required>
                 </td>
 
                 <td>

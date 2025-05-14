@@ -74,9 +74,13 @@ class CustomUser(AbstractUser):
          ('SÍNDICO','Síndico'),
          ('COORDENADOR','Coordenador')
      )
-
-     
      tipo = models.CharField(max_length=100, choices=tipo, default='VISITANTE')
 
+     telefone = models.CharField(
+        max_length=11,
+        blank=True,
+        null=True
+    )
+     
      def __str__(self):
         return self.username

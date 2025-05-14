@@ -34,3 +34,29 @@
             console.error('Elementos não encontrados!');
         }
     });
+
+
+
+
+// Mascara para o campo de telefone
+    const telefone = document.getElementById('telefone');
+
+    telefone.addEventListener('input', function (e) {
+      let valor = e.target.value.replace(/\D/g, ''); // Remove não-números
+  
+      // Limita a 11 dígitos (2 DDD + 9 número de celular)
+      valor = valor.slice(0, 11);
+  
+      if (valor.length >= 1) {
+        valor = valor.replace(/^(\d{0,2})/, '($1');
+      }
+      if (valor.length >= 3) {
+        valor = valor.replace(/^(\(\d{2})(\d)/, '$1) $2');
+      }
+      if (valor.length >= 10) {
+        valor = valor.replace(/(\d{5})(\d{4})$/, '$1-$2');
+      }
+  
+      e.target.value = valor;
+    });
+

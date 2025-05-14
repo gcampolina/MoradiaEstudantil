@@ -13,11 +13,16 @@ from .models import Aviso
 def home(request):
     return render(request,'home.html')
 
-
 @login_required
 def sistema(request):
     usuario = request.user
     return render(request, 'sistema.html', {'usuario': usuario})
+
+
+def suporte(request):
+    usuario = request.user
+    usuarios = CustomUser.objects.all()
+    return render(request,'suporte.html', {'usuario': usuario, 'usuarios': usuarios})
 
 
 @login_required
@@ -287,7 +292,8 @@ def update_user(request, user_id):
     user = get_object_or_404(CustomUser, id=user_id)
     user.first_name = request.POST.get('nome')  
     user.username = request.POST.get('username')  
-    user.email = request.POST.get('email') 
+    user.email = request.POST.get('email')
+    user.telefone = request.POST.get('telefone') 
     user.tipo = request.POST.get('tipo')
     user.save()
     messages.success(request, f'Usuário {user.username} atualizado com sucesso!')
@@ -342,6 +348,7 @@ def cadastro(request):
             email = request.POST.get('email')
             senha = request.POST.get('password')
             confirmacao_senha = request.POST.get('password2')
+            telefone = request.POST.get('telefone', '').replace('(', '').replace(')', '').replace(' ', '').replace('-', '')
 
             # Verificação de senhas
             if senha != confirmacao_senha:
@@ -364,7 +371,7 @@ def cadastro(request):
                     })
 
                 else:
-                    user = CustomUser.objects.create_user(username=username, email=email, password=senha)
+                    user = CustomUser.objects.create_user(username=username, email=email, password=senha, telefone=telefone)
                     user.first_name = nome
                     user.save()
                     messages.success(request, 'Cadastro efetuado com sucesso!')
