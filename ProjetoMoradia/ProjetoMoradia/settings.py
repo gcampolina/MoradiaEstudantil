@@ -26,7 +26,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'core.middleware.HttpsOnlyLoginMiddleware',
 ]
 
 ROOT_URLCONF = 'ProjetoMoradia.urls'
@@ -77,4 +76,3 @@ LOGOUT_REDIRECT_URL = '/'
 SECURE_SSL_REDIRECT = False  # não forçar HTTPS automaticamente (para não quebrar o runserver normal)
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

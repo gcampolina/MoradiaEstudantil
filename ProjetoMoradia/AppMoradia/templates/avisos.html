@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/sistema.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>MoradiaEstudantil - Sistema</title>
+    <title>QODARI - Sistema</title>
 </head>
 <body>
     
@@ -61,13 +61,13 @@
                 <div class="header-evento">
                     <h3 class="titulo-evento">{{ aviso.titulo }}</h3>
                     {% if user.tipo == 'COORDENADOR' %}
-                    <!-- Coordenador pode excluir qualquer evento -->
+                    <!-- Coordenador pode excluir qualquer aviso -->
                     <form class="form-event" method="post" action="{% url 'excluir_aviso' aviso.id %}" onsubmit="return confirm('Tem certeza?');">
                         {% csrf_token %}
                         <button style="width: 100%; " type="submit" class="btn-delete"><i class="fa-solid fa-xmark"></i> Excluir</button>
                     </form>
                     {% elif user.tipo == 'SÍNDICO' and aviso.criado_por == user %}
-                    <!-- Síndico pode excluir apenas os eventos que ele mesmo criou -->
+                    <!-- Síndico pode excluir apenas os avisos que ele mesmo criou -->
                     <form class="form-event" method="post" action="{% url 'excluir_aviso' aviso.id %}" onsubmit="return confirm('Tem certeza?');">
                         {% csrf_token %}
                         

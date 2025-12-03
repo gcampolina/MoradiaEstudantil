@@ -1,104 +1,83 @@
-{% load static %}
+﻿{% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MoradiaEstudantil</title>
+  <title>QODARI</title>
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-  
-    
-      <nav class="navbar-box">
-        <div class="logo">
-            <a style="text-decoration: none;" href="/"><span class="gray">Moradia</span><span class="green">Estudantil</span></a>
-        </div>
-        
-        <div class="navbar">
-            <ul class="nav-links">
-                <li><a href="https://wa.me/3898069404" target="_blank"><i class="fa-brands fa-whatsapp"></i> Contato</a></li>
-                
-              </ul>
-              <div class="widget">
-                {% if user.is_authenticated %}
-                <a href="{% url 'sistema' %}" class="btn-login">Entrar</a>
-                {% else %}
-                <a href="{% url 'login' %}" class="btn-login">Entrar</a>
-                {% endif %}
-            </div>
-            <ul class="nav-links2">
-              <li><a href="https://wa.me/3898069404" target="_blank"><i class="fa-brands fa-whatsapp"></i> Contato</a></li>
-              
-            </ul>
-        </div>
-       
-
-
-        
-      </nav>
-
-
-
-
-
-    <section class="hero">
-        <div class="hero-container">
-        <div class="hero-content">
-          <h2>Uma casa para se chamar de sua durante a <br>faculdade</h2>
-          <p>Facilitamos o acesso à moradia com acolhimento, praticidade e segurança.</p>
-        </div>
+  <nav class="navbar-box">
+    <div class="logo">
+        <a style="text-decoration: none;" href="/"><span class="gray">QO</span><span class="green">DARI</span></a>
     </div>
-      </section>
-
-
-
-    <section class="sobre">
-        <p>
-          O <span class="gray">Moradia</span><span class="green">Estudantil</span> é um projeto que visa oferecer um lar acessível, confortável e seguro para estudantes universitários que precisam de um lugar para morar durante sua graduação.
-        </p>
-        <p>
-          Com uma plataforma prática e intuitiva, nosso objetivo é conectar estudantes a moradias com ambiente acolhedor, infraestrutura de qualidade e preços acessíveis.
-        </p>
-        <p>
-          Queremos garantir que você tenha mais tempo e tranquilidade para focar nos estudos, sabendo que seu lar está em boas mãos.
-        </p>
-      </div>
-    </section>
-
-
-    <section class="destaques">
-        <h2>Por que escolher nossa moradia?</h2>
-        <div class="cards">
-          <div class="card">
-            <i class="fas fa-bed"></i>
-            <h3>Conforto</h3>
-            <p>Ambientes acolhedores e prontos para o seu descanso e estudo.</p>
-          </div>
-          <div class="card">
-            <i class="fas fa-map-marker-alt"></i>
-            <h3>Localização</h3>
-            <p>Perto da universidade e com fácil acesso a tudo o que você precisa.</p>
-          </div>
-          <div class="card">
-            <i class="fas fa-users"></i>
-            <h3>Comunidade</h3>
-            <p>Você nunca estará sozinho. Convivência e apoio entre estudantes.</p>
-          </div>
+    
+    <div class="navbar">
+        <ul class="nav-links">
+            <li><a href="https://wa.me/3898069404" target="_blank"><i class="fa-brands fa-whatsapp"></i> Contato</a></li>
+          </ul>
+          <div class="widget">
+            {% if user.is_authenticated %}
+            <a href="{% url 'sistema' %}" class="btn-login">Entrar</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn-login">Entrar</a>
+            {% endif %}
         </div>
-      </section>
+        <ul class="nav-links2">
+          <li><a href="https://wa.me/3898069404" target="_blank"><i class="fa-brands fa-whatsapp"></i> Contato</a></li>
+        </ul>
+    </div>
+  </nav>
 
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h2>Uma casa para se chamar de sua durante a <br>faculdade</h2>
+        <p>Facilitamos o acesso à moradia com acolhimento, praticidade e segurança.</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="sobre">
+    <p>
+      O <span class="gray">QO</span><span class="green">DARI</span> é um projeto que visa oferecer um lar acessível, confortável e seguro para estudantes universitários que precisam de um lugar para morar durante sua graduação.
+    </p>
+    <p>
+      Com uma plataforma prática e intuitiva, nosso objetivo é conectar estudantes a moradias com ambiente acolhedor, infraestrutura de qualidade e preços acessíveis.
+    </p>
+    <p>
+      Queremos garantir que você tenha mais tempo e tranquilidade para focar nos estudos, sabendo que seu lar está em boas mãos.
+    </p>
+  </section>
 
+  <section class="destaques">
+    <h2>Por que escolher nossa moradia?</h2>
+    <div class="cards">
+      <div class="card">
+        <i class="fas fa-bed"></i>
+        <h3>Conforto</h3>
+        <p>Ambientes acolhedores e prontos para o seu descanso e estudo.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Localização</h3>
+        <p>Perto da universidade e com fácil acesso a tudo o que você precisa.</p>
+      </div>
+      <div class="card">
+        <i class="fas fa-users"></i>
+        <h3>Comunidade</h3>
+        <p>Você nunca estará sozinho. Convivência e apoio entre estudantes.</p>
+      </div>
+    </div>
+  </section>
 
   <footer class="footer">
-    <p>&copy; 2025 MoradiaEstudantil. Todos os direitos reservados.</p>
+    <p>&copy; 2025 QODARI. Todos os direitos reservados.</p>
   </footer>
-
 
   <script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>
-
