@@ -3,10 +3,18 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-9t1393n6c_8p6=dkvslf#1(r_vk!1sl2e%tu#!0k94niwo*41g'
-DEBUG = True
+# ================================
+#      SECURITY
+# ================================
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+
 ALLOWED_HOSTS = ['*']
 
+# ================================
+#      INSTALLED APPS
+# ================================
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -15,11 +23,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'AppMoradia',
-    'django_extensions',   # mantém, pois é quem fornece o runserver_plus
 ]
 
+# ================================
+#      MIDDLEWARE
+# ================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # WhiteNoise (IMPORTANTE)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -30,6 +44,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ProjetoMoradia.urls'
 
+# ================================
+#      TEMPLATES
+# ================================
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -47,6 +64,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProjetoMoradia.wsgi.application'
 
+# ================================
+#      DATABASE
+# ================================
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -54,25 +74,47 @@ DATABASES = {
     }
 }
 
+# ================================
+#      PASSWORD VALIDATION
+# ================================
 AUTH_PASSWORD_VALIDATORS = []
 
+# ================================
+#      INTERNATIONALIZATION
+# ================================
 LANGUAGE_CODE = 'pt-BR'
 TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'AppMoradia/static')]
+# ================================
+#      STATIC FILES
+# ================================
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'AppMoradia', 'static'),
+]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# ================================
+#      MEDIA FILES
+# ================================
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# ================================
+#      CUSTOM USER
+# ================================
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 AUTH_USER_MODEL = 'AppMoradia.CustomUser'
 LOGOUT_REDIRECT_URL = '/'
 
-# ✅ Configurações de HTTPS local
-SECURE_SSL_REDIRECT = False  # não forçar HTTPS automaticamente (para não quebrar o runserver normal)
+# ================================
+#      HTTPS SETTINGS (Render lida automaticamente)
+# ================================
+SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
